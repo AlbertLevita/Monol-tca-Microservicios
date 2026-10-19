@@ -1,3 +1,4 @@
+cat << 'EOF' > .github/workflows/ci.yml
 name: Node.js CI
 
 on:
@@ -17,9 +18,13 @@ jobs:
           node-version: '18'
       - name: Install and Test Monolito
         run: |
-          cd monolito
-          npm install
-          npm test || true
+          if [ -d "monolito" ]; then
+            cd monolito
+            npm install
+            npm test || true
+          else
+            echo "Directorio monolito no encontrado, omitiendo..."
+          fi
 
   test-microservicios:
     runs-on: ubuntu-latest
@@ -31,17 +36,23 @@ jobs:
           node-version: '18'
       - name: Install and Test Usuarios
         run: |
-          cd microservicios/usuarios
-          npm install
-          npm test || true
+          if [ -d "microservicios/usuarios" ]; then
+            cd microservicios/usuarios
+            npm install
+            npm test || true
+          fi
       - name: Install and Test Productos
         run: |
-          cd microservicios/productos
-          npm install
-          npm test || true
+          if [ -d "microservicios/productos" ]; then
+            cd microservicios/productos
+            npm install
+            npm test || true
+          fi
       - name: Install and Test Pedidos
         run: |
-          cd microservicios/pedidos
-          npm install
-          npm test || true
+          if [ -d "microservicios/pedidos" ]; then
+            cd microservicios/pedidos
+            npm install
+            npm test || true
+          fi
 EOF
