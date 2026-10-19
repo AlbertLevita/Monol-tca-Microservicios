@@ -11,9 +11,9 @@ jobs:
   test-monolito:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
       - name: Install and Test Monolito
@@ -22,16 +22,14 @@ jobs:
             cd monolito
             npm install
             npm test || true
-          else
-            echo "Directorio monolito no encontrado, omitiendo..."
           fi
 
   test-microservicios:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
       - name: Install and Test Usuarios
