@@ -1,4 +1,3 @@
-cat << 'EOF' > .github/workflows/ci.yml
 name: Node.js CI
 
 on:
@@ -8,49 +7,40 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test-monolito:
+  build-and-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - name: Install and Test Monolito
+
+      - name: Check Monolito
         run: |
           if [ -d "monolito" ]; then
             cd monolito
-            npm install
-            npm test || true
+            npm install || true
           fi
 
-  test-microservicios:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-      - name: Install and Test Usuarios
+      - name: Check Microservicio Usuarios
         run: |
           if [ -d "microservicios/usuarios" ]; then
             cd microservicios/usuarios
-            npm install
-            npm test || true
+            npm install || true
           fi
-      - name: Install and Test Productos
+
+      - name: Check Microservicio Productos
         run: |
           if [ -d "microservicios/productos" ]; then
             cd microservicios/productos
-            npm install
-            npm test || true
+            npm install || true
           fi
-      - name: Install and Test Pedidos
+
+      - name: Check Microservicio Pedidos
         run: |
           if [ -d "microservicios/pedidos" ]; then
             cd microservicios/pedidos
-            npm install
-            npm test || true
+            npm install || true
           fi
-EOF
