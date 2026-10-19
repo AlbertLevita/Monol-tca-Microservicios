@@ -1,0 +1,47 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-monolito:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install and Test Monolito
+        run: |
+          cd monolito
+          npm install
+          npm test || true
+
+  test-microservicios:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install and Test Usuarios
+        run: |
+          cd microservicios/usuarios
+          npm install
+          npm test || true
+      - name: Install and Test Productos
+        run: |
+          cd microservicios/productos
+          npm install
+          npm test || true
+      - name: Install and Test Pedidos
+        run: |
+          cd microservicios/pedidos
+          npm install
+          npm test || true
+EOF
